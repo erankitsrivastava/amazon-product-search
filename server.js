@@ -165,27 +165,14 @@ app.post('/api/affiliate-link', requireAuth, async (req, res) => {
 // ─── URL Shortener ────────────────────────────────────────────────────────────
 
 app.post('/api/shorten-url', requireAuth, async (req, res) => {
-  const { url, custom } = req.body;
+  const { url } = req.body;
   if (!url) return res.status(400).json({ error: 'url is required' });
-
-  // Auto-generate slug from amzn.to short code if no custom slug provided
-  let slug = custom;
-  if (!slug) {
-    try {
-      slug = new URL(url).pathname.split('/').filter(Boolean).pop() || '';
-    } catch (_) {
-      slug = '';
-    }
-  }
 
   const token = process.env.URL_SHORTENER_TOKEN || '';
   const base = process.env.URL_SHORTENER_BASE || 'https://url.haxcode.com';
 
   try {
-    const payload = { url };
-    if (slug) payload.custom = slug;
-
-    const { data } = await axios.post(`${base}/api/url/add`, payload, {
+    const { data } = await axios.post(`${base}/api/url/add`, { url }, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',

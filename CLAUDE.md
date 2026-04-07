@@ -91,7 +91,7 @@ All endpoints under `/api/*` except `/api/login` and `/api/me` require an active
 |--------|------|------|----------|
 | `POST` | `/api/scrape` | `{ url }` | `{ title, image, price, description, url }` |
 | `POST` | `/api/affiliate-link` | `{ productUrl }` | `{ affiliateUrl }` |
-| `POST` | `/api/shorten-url` | `{ url, custom? }` | `{ shortUrl }` |
+| `POST` | `/api/shorten-url` | `{ url }` | `{ shortUrl }` |
 
 ### Publishing
 
@@ -134,9 +134,9 @@ Response shape: `{ shortUrl: "https://amzn.to/XXXXX" }`. Also checks `data.url` 
 ```
 POST https://url.haxcode.com/api/url/add
 Authorization: Bearer {URL_SHORTENER_TOKEN}
-Body: { url, custom? }
+Body: { url }
 ```
-If no `custom` slug is provided, one is auto-generated from the last path segment of the affiliate URL (e.g. `amzn.to/AbCdEf` → slug `AbCdEf`). Response shape varies — checks `shortUrl`, `short_url`, `url`, and `data.url`/`data.shortUrl`.
+No custom slug is sent — the shortener assigns one automatically. Response shape varies — checks `shortUrl`, `short_url`, `url`, and `data.url`/`data.shortUrl`.
 
 ### Instagram Publishing (`/api/publish/instagram`)
 Three-step Facebook Graph API v19.0 flow:
