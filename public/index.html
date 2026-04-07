@@ -1,71 +1,757 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-	  <title>Amazon Product Cataloge</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Affiliate Publisher</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-		<style>
-			html {
-				height: 100%;
-			}
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3350;
+      --accent: #ff9900;
+      --accent2: #e67e00;
+      --text: #e8eaf0;
+      --muted: #7b82a0;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --radius: 10px;
+    }
 
-			body {
-				min-height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background-color: #ddd;
-			}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
 
-			#root {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
+    /* ── Login ─────────────────────────────────────────── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-			#loading-svg {
-				height: 50%;
-				width: 50%;
-			}
+    .login-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+    }
 
-			#loading-svg .cls-1 {
-				animation: Shine 1s linear infinite;
-			}
+    .login-logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
 
-			@keyframes Shine{
-				0% {
-					fill: #00afd7;
-				}
-				50% {
-					fill: #007392;
-				}
-				100% {
-					fill: #00afd7;
-				}
-			}
+    .login-logo .icon { font-size: 40px; display: block; margin-bottom: 8px; }
+    .login-logo h1 { font-size: 20px; font-weight: 700; color: var(--accent); }
+    .login-logo p { color: var(--muted); font-size: 13px; margin-top: 4px; }
 
-		</style>
-   </head>
-   <body>
-	   <div id="root">
-			<svg version="1.1" id="loading-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 52.6 50.5" enable-background="new 0 0 52.6 50.5" xml:space="preserve">
-				<g>
-					<path class="cls-1" d="M20.4,17.3c1.3-1.1,2.5-2.2,3.8-3.2c-1-0.7-1.9-1.3-2.8-1.9c-1.1,0.9-2.2,1.9-3.3,2.9 C19.2,15.5,20,16.3,20.4,17.3z"/>
-					<ellipse transform="matrix(1 2.637369e-03 -2.637369e-03 1 4.794111e-02 -4.540240e-02)" class="cls-1" cx="17.2" cy="18.2" rx="4.3" ry="4.1"/>
-					<path class="cls-1" d="M21.1,41.2c-5.9,3.2-11,4-13.3,1.8c-3.2-3.1-0.3-11.2,6.7-19.4c-1.1-0.3-2-1.1-2.5-2.1 C1.8,32.9-2.8,44.4,1.7,48.7c3.7,3.6,12.6,1.2,22.4-5.2C23.1,42.8,22.1,42,21.1,41.2z"/>
-					<path class="cls-1" d="M28.1,13.9c0.3-1.1,1.1-2,2.1-2.5C18.4,1.7,6.4-2.6,1.9,1.7c-3.7,3.6-1.3,12.1,5.4,21.5 c0.8-1,1.6-1.9,2.4-2.9C6.4,14.6,5.5,9.7,7.8,7.4C11.1,4.3,19.5,7.2,28.1,13.9z"/>
-					<path class="cls-1" d="M36.1,16.7c-0.4,1-1.3,1.8-2.3,2.2c1.5,1.5,2.9,2.9,4.1,4.4c0.7-0.9,1.4-1.8,1.9-2.7 C38.7,19.3,37.4,18,36.1,16.7z"/>
-					<path class="cls-1" d="M33.7,20.7c2.4,0,4.3-1.8,4.3-4.1c0-2.3-1.9-4.1-4.3-4.1c-2.4,0-4.3,1.8-4.3,4.1 C29.4,18.8,31.3,20.7,33.7,20.7z"/>
-					<path class="cls-1" d="M44.8,7.5c3.2,3.1,0.3,11.2-6.7,19.4c1.1,0.3,2,1.1,2.5,2.1c10.1-11.4,14.7-23,10.2-27.3 C47.1-1.8,38.2,0.6,28.5,7c1,0.7,2,1.5,3,2.3C37.4,6.1,42.5,5.3,44.8,7.5z"/>
-					<path class="cls-1" d="M32.9,32.5c-1.5,1.4-3.1,2.7-4.6,3.9c1,0.7,1.9,1.3,2.9,1.9c1.4-1.1,2.7-2.3,4.1-3.6 C34.2,34.3,33.4,33.5,32.9,32.5z"/>
-					<ellipse transform="matrix(-1 -2.754597e-03 2.754597e-03 -1 70.5604 64.8494)" class="cls-1" cx="35.3" cy="32.4" rx="4.3" ry="4.1"/>
-					<path class="cls-1" d="M18.8,31.7c-1.5-1.5-2.9-2.9-4.1-4.4c-0.7,0.9-1.4,1.8-1.9,2.7c1.2,1.3,2.4,2.6,3.7,3.9 C16.9,32.9,17.7,32.1,18.8,31.7z"/>
-					<path class="cls-1" d="M45.3,27.4c-0.8,1-1.6,1.9-2.4,2.9c3.3,5.7,4.2,10.5,1.8,12.8c-3.3,3.1-11.7,0.2-20.3-6.4 c-0.3,1.1-1.1,2-2.1,2.5c11.9,9.7,23.9,14.1,28.4,9.8C54.4,45.3,52,36.7,45.3,27.4z"/>
-					<ellipse transform="matrix(2.622796e-03 -1 1 2.622796e-03 -15.1309 52.7534)" class="cls-1" cx="18.9" cy="34" rx="4.1" ry="4.3"/>
-				</g>
-			</svg>
-	   </div>
-   </body>
+    /* ── App Shell ─────────────────────────────────────── */
+    #app {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    .header-brand { display: flex; align-items: center; gap: 10px; }
+    .header-brand .icon { font-size: 24px; }
+    .header-brand h1 { font-size: 18px; font-weight: 700; color: var(--accent); }
+
+    /* ── Form controls ─────────────────────────────────── */
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="url"],
+    textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus { border-color: var(--accent); }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+      font-family: inherit;
+    }
+
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover:not(:disabled) { background: var(--accent2); }
+
+    .btn-secondary {
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover:not(:disabled) { border-color: var(--accent); }
+
+    .btn-publish {
+      background: linear-gradient(135deg, var(--accent), #f97316);
+      color: #000;
+      font-size: 15px;
+      padding: 12px 28px;
+    }
+    .btn-publish:hover:not(:disabled) { opacity: 0.9; }
+
+    .btn-sm { padding: 7px 12px; font-size: 13px; }
+
+    /* ── Cards / sections ──────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    /* ── Product preview ───────────────────────────────── */
+    .product-preview {
+      display: none;
+      gap: 18px;
+    }
+
+    .product-preview.visible { display: flex; }
+
+    .product-preview img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .product-info { flex: 1; min-width: 0; }
+    .product-title-text {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .product-price-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .product-desc-text {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: pre-line;
+    }
+
+    /* ── URL row ───────────────────────────────────────── */
+    .url-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .url-row input { flex: 1; font-size: 13px; }
+
+    /* ── Platform checkboxes ───────────────────────────── */
+    .platforms {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .platform-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+
+    .platform-option.checked {
+      border-color: var(--accent);
+      background: rgba(255,153,0,0.08);
+    }
+
+    .plat-icon { font-size: 20px; }
+    .plat-name { font-weight: 600; font-size: 14px; }
+
+    /* ── Status badges ─────────────────────────────────── */
+    .publish-results {
+      display: none;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .publish-results.visible { display: flex; }
+
+    .result-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    .result-badge.loading { color: var(--blue); border-color: var(--blue); }
+    .result-badge.success { color: var(--green); border-color: var(--green); }
+    .result-badge.error { color: var(--red); border-color: var(--red); }
+
+    /* ── Alert ─────────────────────────────────────────── */
+    .alert {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .alert.visible { display: block; }
+    .alert.error { background: rgba(239,68,68,0.12); border: 1px solid var(--red); color: var(--red); }
+    .alert.success { background: rgba(34,197,94,0.12); border: 1px solid var(--green); color: var(--green); }
+
+    /* ── Step flow ─────────────────────────────────────── */
+    .steps {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .step.active { background: rgba(255,153,0,0.15); color: var(--accent); border-color: var(--accent); }
+    .step.done { background: rgba(34,197,94,0.12); color: var(--green); border-color: var(--green); }
+    .steps .arrow { color: var(--muted); font-size: 12px; }
+
+    /* ── Spinner ───────────────────────────────────────── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    /* ── Misc ──────────────────────────────────────────── */
+    .row { display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
+    .flex-1 { flex: 1; min-width: 0; }
+    .mt-12 { margin-top: 12px; }
+    .hidden { display: none !important; }
+
+    @media (max-width: 600px) {
+      .product-preview { flex-direction: column; }
+      .product-preview img { width: 100%; height: 200px; }
+      .url-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ LOGIN SCREEN ══════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="icon">🛒</span>
+      <h1>Affiliate Publisher</h1>
+      <p>Amazon &rarr; Instagram &middot; Facebook &middot; Pinterest</p>
+    </div>
+
+    <div id="login-alert" class="alert error"></div>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="login-username" placeholder="Enter username" autocomplete="username" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="Enter password" autocomplete="current-password" />
+    </div>
+    <button class="btn-primary" style="width:100%; margin-top:8px;" id="btn-login" onclick="doLogin()">
+      Sign In
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════ MAIN APP ══════════════════ -->
+<div id="app">
+
+  <header>
+    <div class="header-brand">
+      <span class="icon">🛒</span>
+      <h1>Affiliate Publisher</h1>
+    </div>
+    <button class="btn-secondary btn-sm" onclick="doLogout()">Sign Out</button>
+  </header>
+
+  <!-- Step indicator -->
+  <div class="steps">
+    <div class="step active" id="step-1">1. Fetch Product</div>
+    <span class="arrow">&rsaquo;</span>
+    <div class="step" id="step-2">2. Affiliate Link</div>
+    <span class="arrow">&rsaquo;</span>
+    <div class="step" id="step-3">3. Caption</div>
+    <span class="arrow">&rsaquo;</span>
+    <div class="step" id="step-4">4. Publish</div>
+  </div>
+
+  <!-- ── Step 1: Fetch product ── -->
+  <div class="card">
+    <div class="card-title">Step 1 &mdash; Amazon Product URL</div>
+    <div class="row">
+      <div class="flex-1">
+        <input type="url" id="amazon-url"
+          placeholder="https://www.amazon.in/dp/XXXXXXXXXX" />
+      </div>
+      <button class="btn-primary" id="btn-fetch" onclick="fetchProduct()">
+        Fetch Product
+      </button>
+    </div>
+
+    <div id="fetch-alert" class="alert error"></div>
+
+    <!-- Product preview (shown after scrape) -->
+    <div class="product-preview mt-12" id="product-preview">
+      <img id="product-image" src="" alt="Product" />
+      <div class="product-info">
+        <div class="product-title-text" id="product-title-el"></div>
+        <div class="product-price-text" id="product-price-el"></div>
+        <div class="product-desc-text" id="product-desc-el"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Step 2: Affiliate & short URL ── -->
+  <div class="card">
+    <div class="card-title">Step 2 &mdash; Affiliate &amp; Short URL</div>
+
+    <div class="field">
+      <label>SiteStripe Affiliate URL</label>
+      <div class="url-row">
+        <input type="text" id="affiliate-url" placeholder="Will be generated&hellip;" readonly />
+        <button class="btn-secondary btn-sm" id="btn-affiliate" onclick="generateAffiliateLink()">
+          Generate
+        </button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Short URL (url.haxcode.com)</label>
+      <div class="url-row">
+        <input type="text" id="short-url" placeholder="Generated after affiliate link&hellip;" readonly />
+        <button class="btn-secondary btn-sm hidden" id="btn-copy-short" onclick="copyShortUrl()">
+          Copy
+        </button>
+      </div>
+    </div>
+
+    <div id="links-alert" class="alert error"></div>
+  </div>
+
+  <!-- ── Step 3: Caption editor ── -->
+  <div class="card">
+    <div class="card-title">Step 3 &mdash; Post Caption</div>
+    <textarea id="caption" placeholder="Caption will be auto-generated after fetching product and generating affiliate link&hellip;"></textarea>
+  </div>
+
+  <!-- ── Step 4: Publish ── -->
+  <div class="card">
+    <div class="card-title">Step 4 &mdash; Choose Platforms &amp; Publish</div>
+
+    <div class="platforms">
+      <div class="platform-option" id="opt-instagram" onclick="togglePlatform('instagram')">
+        <span class="plat-icon">&#128248;</span>
+        <span class="plat-name">Instagram</span>
+      </div>
+      <div class="platform-option" id="opt-facebook" onclick="togglePlatform('facebook')">
+        <span class="plat-icon">&#128077;</span>
+        <span class="plat-name">Facebook</span>
+      </div>
+      <div class="platform-option" id="opt-pinterest" onclick="togglePlatform('pinterest')">
+        <span class="plat-icon">&#128204;</span>
+        <span class="plat-name">Pinterest</span>
+      </div>
+    </div>
+
+    <div id="publish-alert" class="alert error"></div>
+
+    <button class="btn-publish" id="btn-publish" onclick="publishAll()">
+      &#128640; Publish Now
+    </button>
+
+    <div class="publish-results" id="publish-results"></div>
+  </div>
+
+</div><!-- /#app -->
+
+<script>
+// ════════════════════════════════════════════════════════
+// State
+// ════════════════════════════════════════════════════════
+var product = null;
+var affiliateUrl = '';
+var shortUrl = '';
+var selectedPlatforms = new Set();
+
+// ════════════════════════════════════════════════════════
+// Init — check if already logged in
+// ════════════════════════════════════════════════════════
+(async function init() {
+  var res = await apiFetch('GET', '/api/me');
+  if (res && res.authenticated) showApp();
+})();
+
+// Keyboard support for login
+window.addEventListener('DOMContentLoaded', function() {
+  ['login-username', 'login-password'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doLogin();
+    });
+  });
+  document.getElementById('amazon-url').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') fetchProduct();
+  });
+});
+
+// ════════════════════════════════════════════════════════
+// Auth
+// ════════════════════════════════════════════════════════
+async function doLogin() {
+  var username = document.getElementById('login-username').value.trim();
+  var password = document.getElementById('login-password').value;
+  var alertEl = document.getElementById('login-alert');
+  hideAlert(alertEl);
+
+  if (!username || !password) {
+    return showAlert(alertEl, 'Please enter your username and password');
+  }
+
+  var btn = document.getElementById('btn-login');
+  setLoading(btn, true, 'Signing in&hellip;');
+
+  var res = await apiFetch('POST', '/api/login', { username, password });
+  setLoading(btn, false, 'Sign In');
+
+  if (res && res.success) {
+    showApp();
+  } else {
+    showAlert(alertEl, res && res.error ? res.error : 'Login failed');
+  }
+}
+
+async function doLogout() {
+  await apiFetch('POST', '/api/logout');
+  location.reload();
+}
+
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}
+
+// ════════════════════════════════════════════════════════
+// Step 1 — Fetch Product
+// ════════════════════════════════════════════════════════
+async function fetchProduct() {
+  var url = document.getElementById('amazon-url').value.trim();
+  var alertEl = document.getElementById('fetch-alert');
+  hideAlert(alertEl);
+
+  if (!url) return showAlert(alertEl, 'Please paste an Amazon product URL');
+
+  var btn = document.getElementById('btn-fetch');
+  setLoading(btn, true, 'Fetching&hellip;');
+
+  var res = await apiFetch('POST', '/api/scrape', { url });
+  setLoading(btn, false, 'Fetch Product');
+
+  if (res && res.title) {
+    product = res;
+    renderProduct(product);
+    updateCaption();
+    setStep(2);
+  } else {
+    showAlert(alertEl, res && res.error ? res.error : 'Failed to fetch product');
+  }
+}
+
+function renderProduct(p) {
+  var preview = document.getElementById('product-preview');
+  var img = document.getElementById('product-image');
+  if (p.image) {
+    img.src = p.image;
+    img.style.display = '';
+  } else {
+    img.style.display = 'none';
+  }
+  document.getElementById('product-title-el').textContent = p.title;
+  document.getElementById('product-price-el').textContent = p.price || '';
+  document.getElementById('product-desc-el').textContent = p.description || '';
+  preview.classList.add('visible');
+}
+
+// ════════════════════════════════════════════════════════
+// Step 2 — Affiliate + Short URL
+// ════════════════════════════════════════════════════════
+async function generateAffiliateLink() {
+  var alertEl = document.getElementById('links-alert');
+  hideAlert(alertEl);
+
+  if (!product) return showAlert(alertEl, 'Fetch a product first (Step 1)');
+
+  var btn = document.getElementById('btn-affiliate');
+  setLoading(btn, true, 'Generating&hellip;');
+
+  // 1. Get SiteStripe affiliate link
+  var affRes = await apiFetch('POST', '/api/affiliate-link', { productUrl: product.url });
+  if (!affRes || affRes.error) {
+    setLoading(btn, false, 'Generate');
+    return showAlert(alertEl, affRes && affRes.error ? affRes.error : 'Failed to get affiliate link');
+  }
+
+  affiliateUrl = affRes.affiliateUrl;
+  document.getElementById('affiliate-url').value = affiliateUrl;
+
+  // 2. Shorten it
+  var shortRes = await apiFetch('POST', '/api/shorten-url', { url: affiliateUrl });
+  setLoading(btn, false, 'Regenerate');
+
+  if (!shortRes || shortRes.error) {
+    return showAlert(alertEl, shortRes && shortRes.error ? shortRes.error : 'Failed to shorten URL');
+  }
+
+  shortUrl = shortRes.shortUrl;
+  document.getElementById('short-url').value = shortUrl;
+  document.getElementById('btn-copy-short').classList.remove('hidden');
+
+  updateCaption();
+  setStep(3);
+}
+
+function copyShortUrl() {
+  navigator.clipboard.writeText(shortUrl).then(function() {
+    var btn = document.getElementById('btn-copy-short');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+// ════════════════════════════════════════════════════════
+// Step 3 — Caption
+// ════════════════════════════════════════════════════════
+function updateCaption() {
+  if (!product) return;
+  var link = shortUrl || affiliateUrl || product.url;
+  var price = product.price ? '\nPrice: ' + product.price : '';
+  var desc = product.description
+    ? product.description.split('\n').slice(0, 3).join('\n') + '\n\n'
+    : '';
+  var caption = product.title + price + '\n\n' + desc + link + '\n\n#amazon #deals #onlineshopping #affiliate';
+  document.getElementById('caption').value = caption;
+}
+
+// ════════════════════════════════════════════════════════
+// Step 4 — Publish
+// ════════════════════════════════════════════════════════
+function togglePlatform(name) {
+  var optEl = document.getElementById('opt-' + name);
+  if (selectedPlatforms.has(name)) {
+    selectedPlatforms.delete(name);
+    optEl.classList.remove('checked');
+  } else {
+    selectedPlatforms.add(name);
+    optEl.classList.add('checked');
+  }
+}
+
+async function publishAll() {
+  var alertEl = document.getElementById('publish-alert');
+  hideAlert(alertEl);
+
+  if (selectedPlatforms.size === 0) return showAlert(alertEl, 'Select at least one platform');
+  if (!product) return showAlert(alertEl, 'Fetch a product first (Step 1)');
+
+  var caption = document.getElementById('caption').value.trim();
+  if (!caption) return showAlert(alertEl, 'Caption cannot be empty');
+
+  var imageUrl = product.image;
+  var publishLink = shortUrl || affiliateUrl || product.url;
+
+  var resultsEl = document.getElementById('publish-results');
+  resultsEl.innerHTML = '';
+  resultsEl.classList.add('visible');
+
+  var platforms = Array.from(selectedPlatforms);
+  var badges = {};
+
+  platforms.forEach(function(p) {
+    var badge = document.createElement('div');
+    badge.className = 'result-badge loading';
+    badge.innerHTML = '<span class="spinner"></span>&nbsp;' + capitalize(p) + ': Publishing\u2026';
+    resultsEl.appendChild(badge);
+    badges[p] = badge;
+  });
+
+  var btn = document.getElementById('btn-publish');
+  setLoading(btn, true, 'Publishing\u2026');
+
+  await Promise.all(platforms.map(async function(platform) {
+    var endpoint, body;
+
+    if (platform === 'instagram') {
+      endpoint = '/api/publish/instagram';
+      body = { imageUrl, caption };
+    } else if (platform === 'facebook') {
+      endpoint = '/api/publish/facebook';
+      body = { imageUrl, caption };
+    } else {
+      endpoint = '/api/publish/pinterest';
+      body = { imageUrl, title: product.title, caption, link: publishLink };
+    }
+
+    var res = await apiFetch('POST', endpoint, body);
+    var badge = badges[platform];
+
+    if (res && res.success) {
+      badge.className = 'result-badge success';
+      var viewLink = res.postUrl || res.pinUrl || '';
+      badge.innerHTML = '\u2705 ' + capitalize(platform) + ': Published'
+        + (viewLink ? ' &mdash; <a href="' + viewLink + '" target="_blank" rel="noopener">View</a>' : '');
+    } else {
+      badge.className = 'result-badge error';
+      badge.textContent = '\u274C ' + capitalize(platform) + ': ' + ((res && res.error) || 'Failed');
+    }
+  }));
+
+  setLoading(btn, false, '&#128640; Publish Now');
+  setStep(4);
+}
+
+// ════════════════════════════════════════════════════════
+// Helpers
+// ════════════════════════════════════════════════════════
+async function apiFetch(method, url, body) {
+  try {
+    var opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    var res = await fetch(url, opts);
+    return await res.json();
+  } catch (err) {
+    console.error('Fetch error:', err);
+    return { error: err.message };
+  }
+}
+
+function setLoading(btn, loading, label) {
+  btn.disabled = loading;
+  btn.innerHTML = loading ? '<span class="spinner"></span>&nbsp;' + label : label;
+}
+
+function showAlert(el, msg) {
+  el.textContent = msg;
+  el.classList.add('visible');
+}
+
+function hideAlert(el) {
+  el.textContent = '';
+  el.classList.remove('visible');
+}
+
+function setStep(n) {
+  for (var i = 1; i <= 4; i++) {
+    var el = document.getElementById('step-' + i);
+    el.classList.remove('active', 'done');
+    if (i < n) el.classList.add('done');
+    else if (i === n) el.classList.add('active');
+  }
+}
+
+function capitalize(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+</script>
+</body>
 </html>
